@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using CourseController.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +9,84 @@ namespace CourseController.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
+        public static List<Course>? Courses = new List<Course>();
+
         // GET: api/<CourseController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<Course>> Get()
         {
-            return new string[] { "value1", "value2" };
+            if (Courses is null || !Courses.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(Courses);
         }
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Course> Get(int id)
         {
-            return "value";
+            var course = Courses.FirstOrDefault(x => x.Id == id);
+
+            if (course is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(course);
         }
 
         // POST api/<CourseController>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public ActionResult Post([FromBody] Course data)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Courses.Add(data);
+
+            return NoContent();
         }
 
         // PUT api/<CourseController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult Put(int id, [FromBody] Course data)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var course = Courses.FirstOrDefault(x => x.Id == id);
+
+            if (course is null)
+            {
+                return NotFound();
+            }
+
+            course.Name = data.Name;
+            course.Description = data.Description;
+
+            return NoContent();
         }
 
         // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var course = Courses.FirstOrDefault(x => x.Id == id);
+
+            if (course is null)
+            {
+                return NotFound();
+            }
+
+            Courses.Remove(course);
+
+            return NoContent();
         }
     }
 }
