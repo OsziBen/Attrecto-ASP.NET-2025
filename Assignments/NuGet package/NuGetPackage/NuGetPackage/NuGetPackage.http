@@ -1,6 +1,0 @@
-@NuGetPackage_HostAddress = http://localhost:5272
-
-GET {{NuGetPackage_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

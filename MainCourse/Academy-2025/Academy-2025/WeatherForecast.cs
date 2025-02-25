@@ -1,4 +1,4 @@
-namespace NuGetPackage
+namespace Academy_2025
 {
     public class WeatherForecast
     {
