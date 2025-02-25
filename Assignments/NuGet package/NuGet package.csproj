@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>NuGet_package</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <!-- Package Name (Unique) -->
+	  <PackageId>OsziBen.NuGet.SimpleCalculator</PackageId>
+	  <!-- Package Version -->
+	  <Version>1.0.0</Version>
+	  <!-- Author -->
+	  <Authors>Olaszi Bence "OsziBen"</Authors>
+	  <!-- Product Name -->
+	  <Product>SimpleCalculator</Product>
+	  <!-- Description -->
+	  <Description>A simple calculator library for basic arithmetic operations.</Description>
+	  <!-- License Type -->
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <!-- Project URL -->	  
+	  <PackageProjectUrl>https://github.com/OsziBen/Attrecto-ASP.NET-2025/tree/main/Assignments/NuGet%20package</PackageProjectUrl>
+	  <!-- Repository URL -->
+	  <RepositoryUrl>https://github.com/OsziBen/Attrecto-ASP.NET-2025/tree/main/Assignments/NuGet%20package</RepositoryUrl>
+	  <!-- Copyright -->
+	  <Copyright>© 2025 Olaszi Bence. Licensed under the MIT License.</Copyright>
+	  <!-- Tags -->
+	  <PackageTags>calculator, arithmetic, math, addition, subtraction, multiplication, division, NuGet</PackageTags>
+	  <!-- Latest Release Note (what is changed?)-->
+	  <PackageReleaseNotes>This release contains the implementation of basic arithmetic operation logic and the framework of the NuGet package itself.</PackageReleaseNotes>
+	  <!-- README file -->
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+</Project>
