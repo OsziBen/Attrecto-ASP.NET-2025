@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CourseController.Data;
+using CourseController.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,32 +10,28 @@ namespace CourseController.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public static List<User>? Users = new List<User>();
+        //public static List<User>? Users = new List<User>();
+        private UserRepository _repository;
+
+        public UserController()
+        {
+            _repository = new UserRepository();
+        }
 
         // GET: api/<UserController>
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IEnumerable<User> Get()
         {
-            if (Users is null || !Users.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(Users);
+            return _repository.GetAll();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            var user = Users.FirstOrDefault(x => x.Id == id);
+            var user = _repository.GetById(id);
 
-            if (user is null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
+            return user == null ? NotFound() : user;
         }
 
         // POST api/<UserController>
@@ -46,7 +43,7 @@ namespace CourseController.Controllers
                 return BadRequest(ModelState);
             }
 
-            Users.Add(data);
+            _repository.Create(data);
 
             return NoContent();
         }
@@ -60,33 +57,18 @@ namespace CourseController.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = Users.FirstOrDefault(x => x.Id == id);
+            var user = _repository.Update(id, data);
 
-            if (user is null)
-            {
-                return NotFound();
-            }
-
-            user.FirstName = data.FirstName;
-            user.LastName = data.LastName;
-
-            return NoContent();
+            return user == null ? NotFound() : NoContent();
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var user = Users.FirstOrDefault(x => x.Id == id);
+            var result = _repository.Delete(id);
 
-            if (user is null)
-            {
-                return NotFound();
-            }
-
-            Users.Remove(user);
-
-            return NoContent();
+            return result ? NoContent() : NotFound();
         }
     }
 }

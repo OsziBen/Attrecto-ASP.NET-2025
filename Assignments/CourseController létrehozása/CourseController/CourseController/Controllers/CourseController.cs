@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CourseController.Data;
+using CourseController.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,32 +10,28 @@ namespace CourseController.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        public static List<Course>? Courses = new List<Course>();
+        //public static List<Course>? Courses = new List<Course>();
+        private CourseRepository _repository;
+
+        public CourseController()
+        {
+            _repository = new CourseRepository();
+        }
 
         // GET: api/<CourseController>
         [HttpGet]
-        public ActionResult<IEnumerable<Course>> Get()
+        public IEnumerable<Course> Get()
         {
-            if (Courses is null || !Courses.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(Courses);
+            return _repository.GetAll();
         }
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
         public ActionResult<Course> Get(int id)
         {
-            var course = Courses.FirstOrDefault(x => x.Id == id);
+            var course = _repository.GetById(id);
 
-            if (course is null)
-            {
-                return NotFound();
-            }
-
-            return Ok(course);
+            return course == null ? NotFound() : course;
         }
 
         // POST api/<CourseController>
@@ -46,7 +43,7 @@ namespace CourseController.Controllers
                 return BadRequest(ModelState);
             }
 
-            Courses.Add(data);
+            _repository.Create(data);
 
             return NoContent();
         }
@@ -60,33 +57,18 @@ namespace CourseController.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = Courses.FirstOrDefault(x => x.Id == id);
+            var course = _repository.Update(id, data);
 
-            if (course is null)
-            {
-                return NotFound();
-            }
-
-            course.Name = data.Name;
-            course.Description = data.Description;
-
-            return NoContent();
+            return course == null ? NotFound() : NoContent();
         }
 
         // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var course = Courses.FirstOrDefault(x => x.Id == id);
+            var result = _repository.Delete(id);
 
-            if (course is null)
-            {
-                return NotFound();
-            }
-
-            Courses.Remove(course);
-
-            return NoContent();
+            return result ? NoContent() : NotFound();
         }
     }
 }
