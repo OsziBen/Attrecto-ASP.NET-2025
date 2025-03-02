@@ -70,5 +70,14 @@ namespace CourseController.Controllers
 
             return result ? NoContent() : NotFound();
         }
+
+        // GET api/<UserController>
+        [HttpGet("adults")]
+        public ActionResult<IEnumerable<User>> GetAdultUsers()
+        {
+            var users = _repository.GetAllAdultUsers();
+
+            return users.Any() ? Ok(users) : NotFound();
+        }
     }
 }
