@@ -35,6 +35,7 @@ namespace CourseController.Repositories
             {
                 user.FirstName = data.FirstName;
                 user.LastName = data.LastName;
+                user.Age = data.Age;
                 _context.SaveChanges();
 
                 return user;
@@ -55,6 +56,11 @@ namespace CourseController.Repositories
             }
 
             return false;
+        }
+
+        public List<User> GetAllAdultUsers()
+        {
+            return _context.Users.Where(x => x.Age >= 18).ToList();
         }
     }
 }
