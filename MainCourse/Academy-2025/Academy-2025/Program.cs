@@ -1,5 +1,6 @@
 
 using Academy_2025.Data;
+using Academy_2025.Interfaces;
 using Academy_2025.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
