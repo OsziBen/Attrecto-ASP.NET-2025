@@ -14,5 +14,8 @@ namespace Academy_2025.Data
         [Required]
         [StringLength(50)]
         public string? LastName { get; set; }
+
+        // adatbázis-relációk
+        public ICollection<Course> Courses { get; set; } = [];
     }
 }
