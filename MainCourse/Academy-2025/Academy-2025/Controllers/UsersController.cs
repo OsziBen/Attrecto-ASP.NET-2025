@@ -1,5 +1,5 @@
 ﻿using Academy_2025.Data;
-using Academy_2025.Repositories;
+using Academy_2025.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
