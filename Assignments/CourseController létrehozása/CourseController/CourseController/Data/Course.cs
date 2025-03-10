@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseController.Data
 {
@@ -11,8 +12,12 @@ namespace CourseController.Data
         [StringLength(50)]
         public string? Name { get; set; }
 
+        // AUTHOR
         //[Required]
-        //public User? Author { get; set; }
+        public int? AuthorId { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public User? Author { get; set; }
 
         [Required]
         [StringLength(200)]
