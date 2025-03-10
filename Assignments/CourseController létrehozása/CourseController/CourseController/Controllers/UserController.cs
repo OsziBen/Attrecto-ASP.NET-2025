@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CourseController.Data;
 using CourseController.Repositories;
+using CourseController.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,11 +12,11 @@ namespace CourseController.Controllers
     public class UserController : ControllerBase
     {
         //public static List<User>? Users = new List<User>();
-        private UserRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public UserController()
+        public UserController(IUserRepository repository)
         {
-            _repository = new UserRepository();
+            _repository = repository;
         }
 
         // GET: api/<UserController>
