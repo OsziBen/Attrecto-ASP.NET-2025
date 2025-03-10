@@ -17,5 +17,8 @@ namespace CourseController.Data
         [Required]
         [StringLength(200)]
         public string? Description { get; set; }
+
+        // ADATBÁZIS RELÁCIÓK
+        public ICollection<User> Users { get; set; } = [];
     }
 }
