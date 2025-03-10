@@ -37,6 +37,7 @@ namespace CourseController.Repositories
             {
                 user.FirstName = data.FirstName;
                 user.LastName = data.LastName;
+                user.Role = data.Role;
                 user.Age = data.Age;
                 await _context.SaveChangesAsync();
 
