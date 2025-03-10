@@ -4,11 +4,11 @@ namespace CourseController.Interfaces
 {
     public interface IUserRepository
     {
-        void Create(User data);
-        bool Delete(int id);
-        List<User> GetAll();
-        List<User> GetAllAdultUsers();
-        User? GetById(int id);
-        User? Update(int id, User data);
+        Task CreateAsync(User data);
+        Task<bool> DeleteAsync(int id);
+        Task<List<User>> GetAllAsync();
+        Task<List<User>> GetAllAdultUsersAsync();
+        Task<User?> GetByIdAsync(int id);
+        Task<User?> UpdateAsync(int id, User data);
     }
 }

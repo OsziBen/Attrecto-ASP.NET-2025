@@ -21,62 +21,62 @@ namespace CourseController.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<User> Get()
+        public async Task<IEnumerable<User>> GetAsync()
         {
-            return _repository.GetAll();
+            return await _repository.GetAllAsync();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<User>> GetAsync(int id)
         {
-            var user = _repository.GetById(id);
+            var user = await _repository.GetByIdAsync(id);
 
             return user == null ? NotFound() : user;
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public ActionResult Post([FromBody] User data)
+        public async Task<ActionResult> PostAsync([FromBody] User data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _repository.Create(data);
+            await _repository.CreateAsync(data);
 
             return NoContent();
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] User data)
+        public async Task<ActionResult> PutAsync(int id, [FromBody] User data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = _repository.Update(id, data);
+            var user = await _repository.UpdateAsync(id, data);
 
             return user == null ? NotFound() : NoContent();
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            var result = _repository.Delete(id);
+            var result = await _repository.DeleteAsync(id);
 
             return result ? NoContent() : NotFound();
         }
 
         // GET api/<UserController>
         [HttpGet("adults")]
-        public ActionResult<IEnumerable<User>> GetAdultUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetAdultUsersAsync()
         {
-            var users = _repository.GetAllAdultUsers();
+            var users = await _repository.GetAllAdultUsersAsync();
 
             return users.Any() ? Ok(users) : NotFound();
         }
