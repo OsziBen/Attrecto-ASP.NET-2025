@@ -16,6 +16,10 @@ namespace CourseController.Data
         public string? LastName { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string? Role { get; set; }
+
+        [Required]
         [Range(0, 150, ErrorMessage = "Age must be between 0 and 150")]
         public int Age { get; set; }
 
