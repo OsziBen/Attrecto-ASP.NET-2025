@@ -36,8 +36,13 @@ namespace CourseController.Repositories
             if (course != null)
             {
                 course.Name = data.Name;
-                //course.Author = data.Author;
                 course.Description = data.Description;
+
+                if (data.AuthorId.HasValue)
+                {
+                    course.AuthorId = data.AuthorId.Value;
+                }
+
                 await _context.SaveChangesAsync();
 
                 return course;
