@@ -11,6 +11,9 @@ namespace CourseController.Data
         [StringLength(50)]
         public string? Name { get; set; }
 
+        //[Required]
+        //public User? Author { get; set; }
+
         [Required]
         [StringLength(200)]
         public string? Description { get; set; }
