@@ -1,15 +1,16 @@
 ﻿using CourseController.Data;
+using CourseController.Interfaces;
 
 namespace CourseController.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         //public static List<User>? Users = new List<User>();
         private readonly ApplicationDbContext _context;
 
-        public UserRepository()
+        public UserRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public List<User> GetAll()
