@@ -1,15 +1,16 @@
 ﻿using CourseController.Data;
+using CourseController.Interfaces;
 
 namespace CourseController.Repositories
 {
-    public class CourseRepository
+    public class CourseRepository : ICourseRepository
     {
         //public static List<Course>? Courses = new List<Course>();
         private readonly ApplicationDbContext _context;
 
-        public CourseRepository()
+        public CourseRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public List<Course> GetAll()
@@ -34,6 +35,7 @@ namespace CourseController.Repositories
             if (course != null)
             {
                 course.Name = data.Name;
+                //course.Author = data.Author;
                 course.Description = data.Description;
                 _context.SaveChanges();
 
