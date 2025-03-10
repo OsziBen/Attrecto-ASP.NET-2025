@@ -35,8 +35,7 @@ namespace CourseController.Repositories
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user != null)
             {
-                user.FirstName = data.FirstName;
-                user.LastName = data.LastName;
+                user.Name = data.Name;
                 user.Role = data.Role;
                 user.Age = data.Age;
                 await _context.SaveChangesAsync();
