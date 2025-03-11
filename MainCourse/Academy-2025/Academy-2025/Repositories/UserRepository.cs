@@ -7,7 +7,6 @@ namespace Academy_2025.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        //public static List<User>? Users = new List<User>();
         private readonly ApplicationDbContext _context;
 
         public UserRepository(ApplicationDbContext context)
@@ -19,32 +18,20 @@ namespace Academy_2025.Repositories
         {
             return _context.Users.ToListAsync(); // ha egyből visszaadjuk, felesleges async-await használata ~állapotgép
         }
-        // itt nincs actionresult
+
         public Task<User?> GetByIdAsync(int id)
         {
             return _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
-        // nem történik itt már validáció!
+
         public async Task CreateAsync(User data)
         {
             await _context.Users.AddAsync(data);
             await _context.SaveChangesAsync();     // FONTOS!
         }
 
-        public async Task<User?> UpdateAsync(int id, User data)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if (user != null)
-            {
-                user.FirstName = data.FirstName;
-                user.LastName = data.LastName;
-                await _context.SaveChangesAsync();
-
-                return user;
-            }
-
-            return null;
-        }
+        public Task<int> UpdateAsync()
+            => _context.SaveChangesAsync();
 
         public async Task<bool> DeleteAsync(int id)
         {
@@ -59,5 +46,8 @@ namespace Academy_2025.Repositories
 
             return false;
         }
+
+        public Task<User?> GetByEmailAsync(string email)   // create esetében az egyedi emailre figyelni kell!!!
+            => _context.Users.FirstOrDefaultAsync(x => x.Email == email);
     }
 }

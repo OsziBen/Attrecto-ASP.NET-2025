@@ -7,12 +7,12 @@ namespace Academy_2025.Data
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        public required string Email { get; set; }
+
+        public required string Password { get; set; }
+
         public string? FirstName { get; set; }
 
-        [Required]
-        [StringLength(50)]
         public string? LastName { get; set; }
 
         // adatbázis-relációk
