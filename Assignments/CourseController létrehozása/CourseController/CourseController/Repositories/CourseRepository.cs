@@ -16,12 +16,14 @@ namespace CourseController.Repositories
 
         public Task<List<Course>> GetAllAsync()
         {
-            return _context.Courses.ToListAsync();
+            return _context.Courses.Include(c => c.Author).ToListAsync();
         }
 
         public Task<Course?> GetByIdAsync(int id)
         {
-            return _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
+            return _context.Courses
+                .Include(c => c.Author)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task CreateAsync(Course data)
@@ -37,11 +39,7 @@ namespace CourseController.Repositories
             {
                 course.Name = data.Name;
                 course.Description = data.Description;
-
-                if (data.AuthorId.HasValue)
-                {
-                    course.AuthorId = data.AuthorId.Value;
-                }
+                course.AuthorId = data.AuthorId;                
 
                 await _context.SaveChangesAsync();
 

@@ -16,6 +16,13 @@ namespace CourseController.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // A User és Course táblákk közti Many-Many kapcsolat beállítása
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Courses)
+                .WithMany(c => c.Users)
+                .UsingEntity(j => j.ToTable("UserCourses"));
+
+            // A Course és User közötti Author kapcsolat beállítása
             modelBuilder.Entity<Course>()
                 .HasOne(c => c.Author)
                 .WithMany()

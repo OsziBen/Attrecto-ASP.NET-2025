@@ -12,10 +12,15 @@ namespace CourseController.Data
         [StringLength(50)]
         public string? Name { get; set; }
 
-        // AUTHOR
-        //[Required]
-        public int? AuthorId { get; set; }
+        /// <summary>
+        /// Ezt az értéket tárolja az adatbázis
+        /// </summary>
+        public int AuthorId { get; set; }
 
+        /// <summary>
+        /// Ez egy navigációs tulajdonság, amit explicit nem tárol az adatbázis, hanem abból tudjuk kiolvasni
+        /// a későbbi műveletvégzéshez. ezt a EF automatikusan betölti a course adataival együtt
+        /// </summary>
         [ForeignKey("AuthorId")]
         public User? Author { get; set; }
 
