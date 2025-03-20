@@ -30,21 +30,8 @@ namespace CourseController.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<User?> UpdateAsync(int id, User data)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if (user != null)
-            {
-                user.Name = data.Name;
-                user.Role = data.Role;
-                user.Age = data.Age;
-                await _context.SaveChangesAsync();
-
-                return user;
-            }
-
-            return null;
-        }
+        public Task<int> UpdateAsync()
+            => _context.SaveChangesAsync();
 
         public async Task<bool> DeleteAsync(int id)
         {
