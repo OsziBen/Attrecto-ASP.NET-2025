@@ -2,6 +2,7 @@
 using CourseController.Data;
 using CourseController.Interfaces;
 using CourseController.Repositories;
+using CourseController.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourseController
@@ -20,8 +21,11 @@ namespace CourseController
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-            builder.Services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContext")));
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddDbContext<ApplicationDbContext>(opts
+                => opts.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContext")));
 
             var app = builder.Build();
 
