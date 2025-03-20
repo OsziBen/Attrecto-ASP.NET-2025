@@ -8,9 +8,7 @@ namespace CourseController.Data
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string? Name { get; set; }
+        public required string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Ezt az értéket tárolja az adatbázis
@@ -24,9 +22,7 @@ namespace CourseController.Data
         [ForeignKey("AuthorId")]
         public User? Author { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string? Description { get; set; }
+        public required string Description { get; set; } = string.Empty;
 
         // ADATBÁZIS RELÁCIÓK
         public ICollection<User> Users { get; set; } = [];

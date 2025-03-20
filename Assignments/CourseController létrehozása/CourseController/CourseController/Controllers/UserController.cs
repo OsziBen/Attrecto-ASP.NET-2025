@@ -2,6 +2,7 @@
 using CourseController.Data;
 using CourseController.Repositories;
 using CourseController.Interfaces;
+using CourseController.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,53 +13,53 @@ namespace CourseController.Controllers
     public class UserController : ControllerBase
     {
         //public static List<User>? Users = new List<User>();
-        private readonly IUserRepository _repository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository repository)
+        public UserController(IUserService userService)
         {
-            _repository = repository;
+            _userService = userService;
         }
 
         // GET: api/<UserController>
         [HttpGet]
-        public async Task<IEnumerable<User>> GetAsync()
+        public async Task<IEnumerable<UserDto>> GetAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _userService.GetAllAsync();
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetAsync(int id)
+        public async Task<ActionResult<UserDto>> GetAsync(int id)
         {
-            var user = await _repository.GetByIdAsync(id);
+            var user = await _userService.GetByIdAsync(id);
 
             return user == null ? NotFound() : user;
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromBody] User data)
+        public async Task<ActionResult> PostAsync([FromBody] UserDto data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _repository.CreateAsync(data);
+            await _userService.CreateAsync(data);
 
             return NoContent();
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody] User data)
+        public async Task<ActionResult> PutAsync(int id, [FromBody] UserDto data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _repository.UpdateAsync(id, data);
+            var user = await _userService.UpdateAsync(id, data);
 
             return user == null ? NotFound() : NoContent();
         }
@@ -67,16 +68,16 @@ namespace CourseController.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var result = await _repository.DeleteAsync(id);
+            var result = await _userService.DeleteAsync(id);
 
             return result ? NoContent() : NotFound();
         }
 
         // GET api/<UserController>
         [HttpGet("adults")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAdultUsersAsync()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAdultUsersAsync()
         {
-            var users = await _repository.GetAllAdultUsersAsync();
+            var users = await _userService.GetAllAdultUsersAsync();
 
             return users.Any() ? Ok(users) : NotFound();
         }

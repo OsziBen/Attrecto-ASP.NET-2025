@@ -16,6 +16,7 @@ namespace CourseController.Repositories
 
         public Task<List<Course>> GetAllAsync()
         {
+            
             return _context.Courses.Include(c => c.Author).ToListAsync();
         }
 
@@ -26,28 +27,19 @@ namespace CourseController.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<bool> AuthorExistsAsync(int authorId)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == authorId);
+        }
+
         public async Task CreateAsync(Course data)
         {
             await _context.Courses.AddAsync(data);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Course?> UpdateAsync(int id, Course data)
-        {
-            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
-            if (course != null)
-            {
-                course.Name = data.Name;
-                course.Description = data.Description;
-                course.AuthorId = data.AuthorId;                
-
-                await _context.SaveChangesAsync();
-
-                return course;
-            }
-
-            return null;
-        }
+        public Task<int> UpdateAsync()
+            => _context.SaveChangesAsync();
 
         public async Task<bool> DeleteAsync(int id)
         {
