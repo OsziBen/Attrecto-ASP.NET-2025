@@ -49,9 +49,16 @@ namespace CourseController.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _userService.CreateAsync(data);
+            try{
+                await _userService.CreateAsync(data);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // PUT api/<UserController>/5

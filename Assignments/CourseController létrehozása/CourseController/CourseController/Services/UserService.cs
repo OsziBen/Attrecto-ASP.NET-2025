@@ -14,8 +14,16 @@ namespace CourseController.Services
             _userRepository = userRepository;
         }
 
-        public Task CreateAsync(UserDto data)
-            => _userRepository.CreateAsync(DtoConverter.MapToModel(data));
+        public async Task CreateAsync(UserDto data)
+        {
+            if (await _userRepository.EmailExistsAsync(data.Email))
+            {
+                throw new ArgumentException($"User with Email {data.Email} already exists.");
+            }
+
+            await _userRepository.CreateAsync(DtoConverter.MapToModel(data));
+        }
+
 
         public Task<bool> DeleteAsync(int id)
             => _userRepository.DeleteAsync(id);
