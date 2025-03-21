@@ -4,6 +4,8 @@ using CourseController.Repositories;
 using CourseController.Interfaces;
 using CourseController.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +37,22 @@ namespace CourseController.Controllers
         public async Task<ActionResult<UserDto>> GetAsync(int id)
         {
             var user = await _userService.GetByIdAsync(id);
+
+            return user == null ? NotFound() : user;
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var user = await _userService.GetByIdAsync(int.Parse(userId));
 
             return user == null ? NotFound() : user;
         }
