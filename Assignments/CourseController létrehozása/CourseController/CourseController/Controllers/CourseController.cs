@@ -3,6 +3,7 @@ using CourseController.Data;
 using CourseController.Repositories;
 using CourseController.Interfaces;
 using CourseController.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +23,7 @@ namespace CourseController.Controllers
 
         // GET: api/<CourseController>
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<CourseDto>> GetAsync()
         {
             return await _courseService.GetAllAsync();
@@ -29,6 +31,7 @@ namespace CourseController.Controllers
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<CourseDto>> GetAsync(int id)
         {
             var course = await _courseService.GetByIdAsync(id);
@@ -38,6 +41,7 @@ namespace CourseController.Controllers
 
         // POST api/<CourseController>
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> PostAsync([FromBody] CourseDto data)
         {
             if (!ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace CourseController.Controllers
 
         // PUT api/<CourseController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult> PutAsync(int id, [FromBody] CourseDto data)
         {
             if (!ModelState.IsValid)
@@ -73,6 +78,7 @@ namespace CourseController.Controllers
 
         // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var result = await _courseService.DeleteAsync(id);
