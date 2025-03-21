@@ -1,4 +1,5 @@
-﻿using CourseController.Dtos;
+﻿using BCrypt.Net;
+using CourseController.Dtos;
 using CourseController.Helper;
 using CourseController.Interfaces;
 using CourseController.Repositories;
@@ -8,10 +9,12 @@ namespace CourseController.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordService _passwordService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IPasswordService passwordService)
         {
             _userRepository = userRepository;
+            _passwordService = passwordService;
         }
 
         public async Task CreateAsync(UserDto data)
@@ -21,7 +24,12 @@ namespace CourseController.Services
                 throw new ArgumentException($"User with Email {data.Email} already exists.");
             }
 
-            await _userRepository.CreateAsync(DtoConverter.MapToModel(data));
+            var hashedPassword = _passwordService.HashPassword(data.Password);
+
+            var user = DtoConverter.MapToModel(data);
+            user.Password = hashedPassword;
+
+            await _userRepository.CreateAsync(user);
         }
 
 
