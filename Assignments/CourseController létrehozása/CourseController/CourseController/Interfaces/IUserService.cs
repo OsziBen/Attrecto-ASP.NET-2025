@@ -9,6 +9,7 @@ namespace CourseController.Interfaces
         Task<List<UserDto>> GetAllAsync();
         Task<List<UserDto>> GetAllAdultUsersAsync();
         Task<UserDto?> GetByIdAsync(int id);
+        Task<FilteredUserDto?> GetFilteredByIdAsync(int id);
         Task<UserDto?> UpdateAsync(int id, UserDto data);
     }
 }
