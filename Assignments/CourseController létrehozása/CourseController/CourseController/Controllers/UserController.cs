@@ -3,6 +3,7 @@ using CourseController.Data;
 using CourseController.Repositories;
 using CourseController.Interfaces;
 using CourseController.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +23,7 @@ namespace CourseController.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<UserDto>> GetAsync()
         {
             return await _userService.GetAllAsync();
@@ -29,6 +31,7 @@ namespace CourseController.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<UserDto>> GetAsync(int id)
         {
             var user = await _userService.GetByIdAsync(id);
@@ -38,6 +41,7 @@ namespace CourseController.Controllers
 
         // POST api/<UserController>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> PostAsync([FromBody] UserDto data)
         {
             if (!ModelState.IsValid)
@@ -52,6 +56,7 @@ namespace CourseController.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult> PutAsync(int id, [FromBody] UserDto data)
         {
             if (!ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace CourseController.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var result = await _userService.DeleteAsync(id);
@@ -75,6 +81,7 @@ namespace CourseController.Controllers
 
         // GET api/<UserController>
         [HttpGet("adults")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAdultUsersAsync()
         {
             var users = await _userService.GetAllAdultUsersAsync();

@@ -11,6 +11,13 @@ namespace CourseController.Dtos
         public string Name { get; set; } = string.Empty;
 
         [Required]
+        [EmailAddress]
+        public required string Email { get; set; }
+
+        [Required]
+        public required string Password { get; set; }
+
+        [Required]
         [StringLength(50)]
         public string Role { get; set; } = string.Empty;
 
