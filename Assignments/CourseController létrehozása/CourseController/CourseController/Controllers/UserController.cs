@@ -43,7 +43,7 @@ namespace CourseController.Controllers
 
         [HttpGet("me")]
         [Authorize]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        public async Task<ActionResult<FilteredUserDto>> GetCurrentUser()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -52,7 +52,7 @@ namespace CourseController.Controllers
                 return Unauthorized();
             }
 
-            var user = await _userService.GetByIdAsync(int.Parse(userId));
+            var user = await _userService.GetFilteredByIdAsync(int.Parse(userId));
 
             return user == null ? NotFound() : user;
         }

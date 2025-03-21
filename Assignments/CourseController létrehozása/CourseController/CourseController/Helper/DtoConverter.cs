@@ -26,6 +26,14 @@ namespace CourseController.Helper
             Age = userDto.Age
         };
 
+        public static FilteredUserDto MapToFilteredDto(User user) => new()
+        {
+            Name = user.Name,
+            Role = user.Role,
+            Age = user.Age,
+            Email = user.Email
+        };
+
         // COURSE
         public static CourseDto MapToDto(Course course) => new()
         {

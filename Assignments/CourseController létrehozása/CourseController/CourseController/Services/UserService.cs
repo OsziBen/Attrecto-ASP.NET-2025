@@ -57,6 +57,13 @@ namespace CourseController.Services
             return user != null ? DtoConverter.MapToDto(user) : null;
         }
 
+        public async Task<FilteredUserDto?> GetFilteredByIdAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            return user != null ? DtoConverter.MapToFilteredDto(user) : null;
+        }
+
         public async Task<UserDto?> UpdateAsync(int id, UserDto data)
         {
             var user = await _userRepository.GetByIdAsync(id);
