@@ -6,9 +6,9 @@ namespace CourseController.Interfaces
     {
         Task CreateAsync(UserDto data);
         Task<bool> DeleteAsync(int id);
-        Task<List<UserDto>> GetAllAsync();
-        Task<List<UserDto>> GetAllAdultUsersAsync();
-        Task<UserDto?> GetByIdAsync(int id);
+        Task<List<FilteredUserDto>> GetAllAsync();
+        Task<List<FilteredUserDto>> GetAllAdultUsersAsync();
+        Task<FilteredUserDto?> GetByIdAsync(int id);
         Task<FilteredUserDto?> GetFilteredByIdAsync(int id);
         Task<UserDto?> UpdateAsync(int id, UserDto data);
     }
