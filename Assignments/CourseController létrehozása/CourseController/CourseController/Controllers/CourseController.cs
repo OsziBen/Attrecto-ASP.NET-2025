@@ -24,7 +24,7 @@ namespace CourseController.Controllers
         // GET: api/<CourseController>
         [HttpGet]
         [Authorize]
-        public async Task<IEnumerable<CourseDto>> GetAsync()
+        public async Task<IEnumerable<FilteredCourseDto>> GetAsync()
         {
             return await _courseService.GetAllAsync();
         }
@@ -32,7 +32,7 @@ namespace CourseController.Controllers
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<CourseDto>> GetAsync(int id)
+        public async Task<ActionResult<FilteredCourseDto>> GetAsync(int id)
         {
             var course = await _courseService.GetByIdAsync(id);
 

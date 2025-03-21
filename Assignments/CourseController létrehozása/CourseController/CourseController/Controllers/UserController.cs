@@ -26,7 +26,7 @@ namespace CourseController.Controllers
         // GET: api/<UserController>
         [HttpGet]
         [Authorize]
-        public async Task<IEnumerable<UserDto>> GetAsync()
+        public async Task<IEnumerable<FilteredUserDto>> GetAsync()
         {
             return await _userService.GetAllAsync();
         }
@@ -34,7 +34,7 @@ namespace CourseController.Controllers
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<UserDto>> GetAsync(int id)
+        public async Task<ActionResult<FilteredUserDto>> GetAsync(int id)
         {
             var user = await _userService.GetByIdAsync(id);
 
@@ -111,7 +111,7 @@ namespace CourseController.Controllers
         // GET api/<UserController>
         [HttpGet("adults")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetAdultUsersAsync()
+        public async Task<ActionResult<IEnumerable<FilteredUserDto>>> GetAdultUsersAsync()
         {
             var users = await _userService.GetAllAdultUsersAsync();
 
