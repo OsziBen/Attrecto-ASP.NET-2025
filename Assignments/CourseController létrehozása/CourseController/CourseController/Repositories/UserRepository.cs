@@ -54,5 +54,10 @@ namespace CourseController.Repositories
 
         public Task<User?> GetByEmailAsync(string email)
             => _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
+        }
     }
 }
