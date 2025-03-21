@@ -10,6 +10,8 @@ namespace CourseController.Helper
         {
             Id = user.Id,
             Name = user.Name,
+            Email = user.Email,
+            Password = user.Password,
             Role = user.Role,
             Age = user.Age
         };
@@ -18,6 +20,8 @@ namespace CourseController.Helper
         {
             Id = userDto.Id,
             Name = userDto.Name,
+            Email = userDto.Email,
+            Password = userDto.Password,
             Role = userDto.Role,
             Age = userDto.Age
         };
