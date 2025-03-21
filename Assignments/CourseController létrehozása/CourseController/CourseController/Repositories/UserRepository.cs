@@ -51,5 +51,8 @@ namespace CourseController.Repositories
         {
             return _context.Users.Where(x => x.Age >= 18).ToListAsync();
         }
+
+        public Task<User?> GetByEmailAsync(string email)
+            => _context.Users.FirstOrDefaultAsync(x => x.Email == email);
     }
 }
