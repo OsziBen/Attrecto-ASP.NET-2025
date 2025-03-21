@@ -9,6 +9,7 @@ namespace CourseController.Interfaces
         Task<List<User>> GetAllAsync();
         Task<List<User>> GetAllAdultUsersAsync();
         Task<User?> GetByIdAsync(int id);
+        Task<User?> GetByEmailAsync(string email);
         Task<int> UpdateAsync();
     }
 }
