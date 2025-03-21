@@ -36,25 +36,25 @@ namespace CourseController.Services
         public Task<bool> DeleteAsync(int id)
             => _userRepository.DeleteAsync(id);
 
-        public async Task<List<UserDto>> GetAllAdultUsersAsync()
+        public async Task<List<FilteredUserDto>> GetAllAdultUsersAsync()
         {
             var adultUsers = await _userRepository.GetAllAdultUsersAsync();
 
-            return adultUsers.Select(DtoConverter.MapToDto).ToList();
+            return adultUsers.Select(DtoConverter.MapToFilteredDto).ToList();
         }
 
-        public async Task<List<UserDto>> GetAllAsync()
+        public async Task<List<FilteredUserDto>> GetAllAsync()
         {
             var users = await _userRepository.GetAllAsync();
 
-            return users.Select(DtoConverter.MapToDto).ToList();
+            return users.Select(DtoConverter.MapToFilteredDto).ToList();
         }
 
-        public async Task<UserDto?> GetByIdAsync(int id)
+        public async Task<FilteredUserDto?> GetByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
 
-            return user != null ? DtoConverter.MapToDto(user) : null;
+            return user != null ? DtoConverter.MapToFilteredDto(user) : null;
         }
 
         public async Task<FilteredUserDto?> GetFilteredByIdAsync(int id)

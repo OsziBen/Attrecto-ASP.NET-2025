@@ -29,18 +29,18 @@ namespace CourseController.Services
         public Task<bool> DeleteAsync(int id)
             => _courseRepository.DeleteAsync(id);
 
-        public async Task<List<CourseDto>> GetAllAsync()
+        public async Task<List<FilteredCourseDto>> GetAllAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
 
-            return courses.Select(DtoConverter.MapToDto).ToList();
+            return courses.Select(DtoConverter.MapToFilteredDto).ToList();
         }
 
-        public async Task<CourseDto?> GetByIdAsync(int id)
+        public async Task<FilteredCourseDto?> GetByIdAsync(int id)
         {
             var course = await _courseRepository.GetByIdAsync(id);
 
-            return course != null ? DtoConverter.MapToDto(course) : null;
+            return course != null ? DtoConverter.MapToFilteredDto(course) : null;
         }
 
         public async Task<CourseDto?> UpdateAsync(int id, CourseDto data)

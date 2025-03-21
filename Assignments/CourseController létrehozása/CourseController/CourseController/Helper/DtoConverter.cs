@@ -51,5 +51,12 @@ namespace CourseController.Helper
             AuthorId = courseDto.AuthorId,
             Description = courseDto.Description
         };
+
+        public static FilteredCourseDto MapToFilteredDto(Course course) => new()
+        {
+            Name = course.Name,
+            Author = course.Author != null ? MapToFilteredDto(course.Author) : null,
+            Description = course.Description
+        };
     }
 }
